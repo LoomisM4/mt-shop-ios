@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct mt_shop_iosApp: App {
+    init() {
+        // TODO at launch stuff
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

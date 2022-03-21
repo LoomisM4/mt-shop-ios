@@ -27,7 +27,9 @@ struct SpotlightUI: View {
                     NavigationLink(destination: ArticleUI(article: a)) {
                         let link = a.links.spotlightImage
                         if let l = link {
-                            CachedImage(url: l.href)
+                            CachedImage(url: l.href) { img in
+                                return img.resizable().scaledToFit()
+                            }
                         } else {
                             Image(systemName: "xmark.seal")
                         }

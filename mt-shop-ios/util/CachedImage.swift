@@ -7,19 +7,21 @@
 
 import SwiftUI
 
-struct CachedImage: View {
+struct CachedImage<Content>: View where Content : View {
     @State var content: Image?
     
     var url: String
+    let style: (_ img: Image) -> Content
     
-    init(url: String) {
+    init(url: String, style: @escaping (Image) -> Content) {
         self.url = url
+        self.style = style
     }
     
     var body: some View {
         ZStack {
             if let content = content {
-                content.resizable().scaledToFit()
+                style(content)
             } else {
                 ProgressView()
             }

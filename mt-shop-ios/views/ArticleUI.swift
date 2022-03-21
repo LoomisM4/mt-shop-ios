@@ -31,7 +31,11 @@ struct ArticleUI: View {
                             let links = details.links.images
                             if let links = links {
                                 ForEach(links, id: \.id) { l in
-                                    CachedImage(url: l.href)
+                                    CachedImage(url: l.href, style: { img in
+                                        return img.resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: UIScreen.main.bounds.width)
+                                    })
                                 }
                             }
                         }
@@ -48,20 +52,6 @@ struct ArticleUI: View {
             }
         }.onAppear {
             loadArticleDetails()
-        }
-    }
-}
-
-struct ImageView: View {
-    let link: Link
-    
-    var body: some View {
-        AsyncImage(url: URL(string: link.href), content: { img in
-            img.resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: UIScreen.main.bounds.width)
-        }) {
-            ProgressView()
         }
     }
 }

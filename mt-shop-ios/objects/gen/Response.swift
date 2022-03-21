@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct CategoryResponse: Codable {
+struct Response: Codable {
     let embedded: Embedded
 
     enum CodingKeys: String, CodingKey {

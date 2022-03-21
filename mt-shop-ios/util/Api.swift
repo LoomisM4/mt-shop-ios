@@ -13,12 +13,12 @@ class Api {
     private static let base = "http://shop.marcelwettach.eu"
     private static let cacheHandler = CacheHandler()
     
-    static func spotlight(onResonse: @escaping (SpotlightResponse) -> Void) {
+    static func spotlight(onResonse: @escaping (Response) -> Void) {
         let url = URL(string: base + "/spotlight")
         callApi(url, completionHandler: onResonse)
     }
     
-    static func categories(subcategoriesUrl: Link?, onResponse: @escaping (CategoryResponse) -> Void) {
+    static func categories(subcategoriesUrl: Link?, onResponse: @escaping (Response) -> Void) {
         var link = base + "/categories"
         if let subs = subcategoriesUrl {
             link = subs.href
@@ -29,6 +29,10 @@ class Api {
     
     static func details(_ link: Link, onResponse: @escaping (Details) -> Void) {
         callApi(URL(string: link.href), completionHandler: onResponse)
+    }
+    
+    static func articles(articlesUrl: Link, onResponse: @escaping (Response) -> Void) {
+        callApi(URL(string: articlesUrl.href), completionHandler: onResponse)
     }
     
     static func image(url: String, content: @escaping (UIImage) -> Void) {

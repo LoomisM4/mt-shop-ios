@@ -10,8 +10,7 @@
 		1F01E67727DCA46100544292 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F01E67627DCA46100544292 /* Article.swift */; };
 		1F01E67B27DCA69000544292 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F01E67A27DCA69000544292 /* Cart.swift */; };
 		1F5953CB27DB87BC0084A567 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5953CA27DB87BC0084A567 /* Toolbar.swift */; };
-		1F8AA55B27E0D78E00F0FFC3 /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA55A27E0D78E00F0FFC3 /* CategoryResponse.swift */; };
-		1F8AA55D27E0D8EC00F0FFC3 /* SpotlightResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA55C27E0D8EC00F0FFC3 /* SpotlightResponse.swift */; };
+		1F8AA55B27E0D78E00F0FFC3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA55A27E0D78E00F0FFC3 /* Response.swift */; };
 		1F8AA55F27E0D94700F0FFC3 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA55E27E0D94700F0FFC3 /* Links.swift */; };
 		1F8AA56327E0D9AC00F0FFC3 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA56227E0D9AC00F0FFC3 /* Link.swift */; };
 		1F8AA56527E0DA2F00F0FFC3 /* Embedded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA56427E0DA2F00F0FFC3 /* Embedded.swift */; };
@@ -58,8 +57,7 @@
 		1F01E67627DCA46100544292 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1F01E67A27DCA69000544292 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		1F5953CA27DB87BC0084A567 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
-		1F8AA55A27E0D78E00F0FFC3 /* CategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
-		1F8AA55C27E0D8EC00F0FFC3 /* SpotlightResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightResponse.swift; sourceTree = "<group>"; };
+		1F8AA55A27E0D78E00F0FFC3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		1F8AA55E27E0D94700F0FFC3 /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		1F8AA56227E0D9AC00F0FFC3 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		1F8AA56427E0DA2F00F0FFC3 /* Embedded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Embedded.swift; sourceTree = "<group>"; };
@@ -118,13 +116,12 @@
 		1F8AA56827E0DA9F00F0FFC3 /* gen */ = {
 			isa = PBXGroup;
 			children = (
-				1F8AA55A27E0D78E00F0FFC3 /* CategoryResponse.swift */,
+				1F8AA55A27E0D78E00F0FFC3 /* Response.swift */,
 				1F01E67627DCA46100544292 /* Article.swift */,
 				1F8AA55E27E0D94700F0FFC3 /* Links.swift */,
 				1F8AA56627E0DA8100F0FFC3 /* Category.swift */,
 				1F8AA56427E0DA2F00F0FFC3 /* Embedded.swift */,
 				1F8AA56227E0D9AC00F0FFC3 /* Link.swift */,
-				1F8AA55C27E0D8EC00F0FFC3 /* SpotlightResponse.swift */,
 				1F8AA56927E0DB8400F0FFC3 /* Details.swift */,
 			);
 			path = gen;
@@ -388,10 +385,9 @@
 				1F8AA57727E39A2900F0FFC3 /* CachedImage.swift in Sources */,
 				1F8AA56A27E0DB8400F0FFC3 /* Details.swift in Sources */,
 				1F8AA56727E0DA8100F0FFC3 /* Category.swift in Sources */,
-				1F8AA55D27E0D8EC00F0FFC3 /* SpotlightResponse.swift in Sources */,
 				1FEBC6CE27D671B0009430F1 /* ArticleUI.swift in Sources */,
 				1F5953CB27DB87BC0084A567 /* Toolbar.swift in Sources */,
-				1F8AA55B27E0D78E00F0FFC3 /* CategoryResponse.swift in Sources */,
+				1F8AA55B27E0D78E00F0FFC3 /* Response.swift in Sources */,
 				1FE3FCCD27DA4A9F005A5EA9 /* CartArticle.swift in Sources */,
 				1FEBC69127D654E3009430F1 /* mt_shop_iosApp.swift in Sources */,
 				1FB414CD27E88089008729EC /* ArticleList.swift in Sources */,

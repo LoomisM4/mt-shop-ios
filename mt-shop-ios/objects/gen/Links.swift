@@ -8,6 +8,6 @@
 import Foundation
 
 struct Links: Codable {
-    let subcategories, spotlightImage, details, preview: Link?
+    let subcategories, spotlightImage, details, preview, articles: Link?
     let images: [Link]?
 }

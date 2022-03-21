@@ -33,7 +33,9 @@ struct CategoriesList: View {
             if let subs = c.links.subcategories {
                 NavigationLink(c.name, destination: CategoriesList(subs).navigationTitle(c.name))
             } else {
-                NavigationLink(c.name, destination: ArticleList().navigationTitle(c.name))
+                if let articlesUrl = c.links.articles {
+                    NavigationLink(c.name, destination: ArticleList(articlesUrl).navigationTitle(c.name))
+                }
             }
         }.onAppear {
             loadCategories()

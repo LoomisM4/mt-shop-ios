@@ -9,15 +9,17 @@ import SwiftUI
 import MapKit
 
 struct MapUI: View {
-    @StateObject var controller: MapController = MapController()
+    @StateObject var controller = MapController()
     
     var body: some View {
         Map(coordinateRegion: $controller.position)
+            .onAppear {
+                controller.onLocationUpdate = self.onLocationUpdate(long:lat:)
+                controller.getPosition()
+        }
     }
-}
-
-struct MapUI_Previews: PreviewProvider {
-    static var previews: some View {
-        MapUI()
+    
+    func onLocationUpdate(long: CLLocationDegrees, lat: CLLocationDegrees) {
+        // TODO API Call
     }
 }

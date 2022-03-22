@@ -6,21 +6,34 @@
 //
 
 import Foundation
+import CoreLocation
 import MapKit
 
-class MapController: CLLocationManager, ObservableObject {
-    var position: MKCoordinateRegion = MKCoordinateRegion()
+class MapController: NSObject, ObservableObject, CLLocationManagerDelegate {
+    let locationManager = CLLocationManager()
+    
+    var onLocationUpdate: ((_ long: CLLocationDegrees, _ lat: CLLocationDegrees) -> Void)?
+    
+    @Published var position = MKCoordinateRegion()
     
     override init() {
         super.init()
-        self.askForPermission()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
     }
     
-    private func askForPermission() {
-        CLLocationManager().requestWhenInUseAuthorization()
+    func getPosition() {
+        locationManager.startUpdatingLocation()
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocation) {
-        self.position = MKCoordinateRegion(center: manager.coordinate, span: MKCoordinateSpan())
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let coordinates = locations.first?.coordinate
+        if let coordinates = coordinates {
+            position = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01)))
+            locationManager.stopUpdatingLocation()
+            if let onLocationUpdate = onLocationUpdate {
+                onLocationUpdate(coordinates.longitude, coordinates.latitude)
+            }
+        }
     }
 }

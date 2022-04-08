@@ -27,10 +27,10 @@ class MapController: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager.stopUpdatingLocation()
         let coordinates = locations.first?.coordinate
         if let coordinates = coordinates {
             position = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01)))
-            locationManager.stopUpdatingLocation()
             if let onLocationUpdate = onLocationUpdate {
                 onLocationUpdate(coordinates.longitude, coordinates.latitude)
             }

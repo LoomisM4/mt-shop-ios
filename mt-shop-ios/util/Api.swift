@@ -95,11 +95,7 @@ class Api {
     
     static private func isOnline() -> Bool {
         let monitor = NWPathMonitor()
-        var online = monitor.currentPath.status == .satisfied
-        
-        #if DEBUG
-        online = true
-        #endif
+        let online = monitor.currentPath.status == .satisfied
         
         return online
     }

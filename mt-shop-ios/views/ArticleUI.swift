@@ -45,6 +45,8 @@ struct ArticleUI: View {
                         Cart.get().addArticle(articleDetails: details)
                     }
                     Spacer()
+                    Text(details.name).fontWeight(.heavy)
+                    Spacer()
                     Text(details.description)
                 }
             } else {

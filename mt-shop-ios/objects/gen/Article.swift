@@ -9,10 +9,13 @@ import Foundation
 
 struct Article: Codable {
     let id: Int
+    let name: String?
+    let price: Double?
+    let description: String?
     let links: Links
 
     enum CodingKeys: String, CodingKey {
-        case id
+        case id, name, price, description
         case links = "_links"
     }
 }

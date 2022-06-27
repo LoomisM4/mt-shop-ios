@@ -7,53 +7,55 @@
 
 import SwiftUI
 
-struct ArticleUI: View {
-    @State var details: Details?
+struct ArticleUI: View { // 1
+    @State var details: Article? // 1
     
-    var article: Article
+    var article: Article // 0
     
-    init(article: Article) {
-        self.article = article
+    init(article: Article) { // 1
+        self.article = article // 2
     }
     
-    func loadArticleDetails() {
-        Api.details(article.links.details!) { details in
-            self.details = details
+    func loadArticleDetails() { // 1
+        Api.details(article.links.details!) { details in // 4
+            self.details = details // 2
         }
     }
     
-    var body: some View {
-        VStack {
-            if let details = details {
-                ScrollView {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            let links = details.links.images
-                            if let links = links {
-                                ForEach(links, id: \.id) { l in
-                                    CachedImage(url: l.href, style: { img in
-                                        return img.resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: UIScreen.main.bounds.width)
+    var body: some View { // 1
+        VStack { // 1
+            if let details = details { // 2
+                ScrollView { // 1
+                    ScrollView(.horizontal) { // 2
+                        HStack { // 1
+                            let links = details.links.images // 3
+                            if let links = links { // 2
+                                ForEach(links, id: \.id) { l in // 4
+                                    CachedImage(url: l.href, style: { img in // 5
+                                        return img.resizable() // 2
+                                            .aspectRatio(contentMode: .fill) // 3
+                                            .frame(width: UIScreen.main.bounds.width) // 5
                                     })
                                 }
                             }
                         }
                     }
-                    Spacer()
-                    Button("In den Warenkorb") {
-                        Cart.get().addArticle(articleDetails: details)
+                    Spacer() // 1
+                    Button("In den Warenkorb") { // 1
+                        Cart.get().addArticle(articleDetails: details) // 3
                     }
-                    Spacer()
-                    Text(details.name).fontWeight(.heavy)
-                    Spacer()
-                    Text(details.description)
+                    Spacer() // 1
+                    Text(details.name ?? "").fontWeight(.heavy) // 5
+                    Spacer() // 1
+                    Text(details.description ?? "") // 3
                 }
-            } else {
-                Text("Lade")
+            } else { // 1
+                Text("Lade") // 1
             }
-        }.onAppear {
-            loadArticleDetails()
+        }.onAppear { // 1
+            loadArticleDetails() // 1
         }
     }
 }
+
+// 63

@@ -9,107 +9,102 @@ import Foundation
 import SwiftUI
 import Network
 
-class Api {
-    private static let base = "http://shop.marcelwettach.eu"
-    private static let cacheHandler = CacheHandler()
+class Api { // 1
+    private static let base = "http://shop.marcelwettach.eu" // 1
+    private static let cacheHandler = CacheHandler() // 2
     
-    static func spotlight(onResonse: @escaping (Response) -> Void) {
-        let url = URL(string: base + "/spotlight")
-        callApi(url, completionHandler: onResonse)
+    static func spotlight(onResonse: @escaping (Response) -> Void) { // 1
+        let url = URL(string: base + "/spotlight") // 4
+        callApi(url, completionHandler: onResonse) // 2
     }
     
-    static func categories(subcategoriesUrl: Link?, onResponse: @escaping (Response) -> Void) {
-        var link = base + "/categories"
-        if let subs = subcategoriesUrl {
-            link = subs.href
+    static func categories(subcategoriesUrl: Link?, onResponse: @escaping (Response) -> Void) { // 1
+        var link = base + "/categories" // 2
+        if let subs = subcategoriesUrl { // 2
+            link = subs.href // 2
         }
-        let url = URL(string: link)
-        callApi(url, completionHandler: onResponse)
+        let url = URL(string: link) // 3
+        callApi(url, completionHandler: onResponse) // 2
     }
     
-    static func details(_ link: Link, onResponse: @escaping (Details) -> Void) {
-        callApi(URL(string: link.href), completionHandler: onResponse)
+    static func details(_ link: Link, onResponse: @escaping (Article) -> Void) { // 1
+        callApi(URL(string: link.href), completionHandler: onResponse) // 5
     }
     
-    static func articles(articlesUrl: Link, onResponse: @escaping (Response) -> Void) {
-        callApi(URL(string: articlesUrl.href), completionHandler: onResponse)
+    static func articles(articlesUrl: Link, onResponse: @escaping (Response) -> Void) { // 1
+        callApi(URL(string: articlesUrl.href), completionHandler: onResponse) // 5
     }
     
-    static func image(url: String, content: @escaping (UIImage) -> Void) {
-        let request = URLRequest(url: URL(string: url)!)
-        if isOnline() {
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard checkResponse(data: data, error: error) else {
-                    print("Es ist ein Fehler aufgetreten")
-                    return
+    static func image(url: String, content: @escaping (UIImage) -> Void) { // 1
+        let request = URLRequest(url: URL(string: url)!) // 5
+        if NetworkChecker.isOnline { // 2
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in // 7
+                guard checkResponse(data: data, error: error) else { // 5
+                    print("Es ist ein Fehler aufgetreten") // 0
+                    return // 1
                 }
 
-                if let image = UIImage(data: data!) {
-                    cacheHandler.save(request, CachedURLResponse(response: response!, data: data!))
-                    content(image)
+                if let image = UIImage(data: data!) { // 4
+                    cacheHandler.save(request, CachedURLResponse(response: response!, data: data!)) // 4
+                    content(image) // 1
                 }
             }
-            task.resume()
-        } else {
-            if let response = cacheHandler.load(request) {
-                if let image = UIImage(data: response.data) {
-                    content(image)
+            task.resume() // 1
+        } else { // 1
+            if let response = cacheHandler.load(request) { // 3
+                if let image = UIImage(data: response.data) { // 5
+                    content(image) // 1
                 }
             }
         }
     }
     
-    static fileprivate func callApi<T: Codable>(_ url: URL?, completionHandler: @escaping (T) -> Void) {
-        let request = URLRequest(url: url!)
+    static fileprivate func callApi<T: Codable>(_ url: URL?, completionHandler: @escaping (T) -> Void) { // 1
+        let request = URLRequest(url: url!) // 3
         
-        if isOnline() {
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard checkResponse(data: data, error: error) else {
-                    print("Es ist ein Fehler aufgetreten")
-                    return
+        if NetworkChecker.isOnline { // 2
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in // 7
+                guard checkResponse(data: data, error: error) else { // 5
+                    print("Es ist ein Fehler aufgetreten") // 0
+                    return // 1
                 }
                 
-                do {
-                    let t = try JSONDecoder().decode(T.self, from: data!)
+                do { // 1
+                    let t = try JSONDecoder().decode(T.self, from: data!) // 5
                     // cache response
-                    cacheHandler.save(request, CachedURLResponse(response: response!, data: data!))
+                    cacheHandler.save(request, CachedURLResponse(response: response!, data: data!)) // 4
                     
-                    completionHandler(t)
-                } catch {
-                    print("Parsing not possible")
+                    completionHandler(t) // 1
+                } catch { // 1
+                    print("Parsing not possible") // 0
                 }
             }
-            task.resume()
-        } else {
-            if let response = cacheHandler.load(request) {
-                do {
-                    let t = try JSONDecoder().decode(T.self, from: response.data)
+            task.resume() // 1
+        } else { // 1
+            if let response = cacheHandler.load(request) { // 3
+                do { // 1
+                    let t = try JSONDecoder().decode(T.self, from: response.data) // 6
                     
-                    completionHandler(t)
-                } catch {
-                    print("Parsing not possible")
+                    completionHandler(t) // 1
+                } catch { // 1
+                    print("Parsing not possible") // 0
                 }
             }
         }
     }
     
-    static private func isOnline() -> Bool {
-        let monitor = NWPathMonitor()
-        let online = monitor.currentPath.status == .satisfied
-        
-        return online
-    }
-    
-    static private func checkResponse(data: Data?, error: Error?) -> Bool {
-        if let error = error {
-            print(error.localizedDescription)
-            return false
+    static private func checkResponse(data: Data?, error: Error?) -> Bool { // 1
+        if let error = error { // 2
+            print(error.localizedDescription) // 0
+            return false // 1
         }
         
-        guard data != nil else {
-            return false
+        guard data != nil else { // 3
+            return false // 1
         }
 
-        return true
+        return true // 1
     }
 }
+
+// 130

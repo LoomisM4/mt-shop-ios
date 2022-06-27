@@ -7,30 +7,32 @@
 
 import Foundation
 
-class CartArticle: ObservableObject, Identifiable {
-    let articleDetails: Details
-    @Published var quantity: Int
-    @Published var positionPrice: Double?
+class CartArticle: ObservableObject, Identifiable { // 1
+    let articleDetails: Article // 0
+    @Published var quantity: Int // 1
+    @Published var positionPrice: Double? // 1
     
-    init(_ articleDetails: Details) {
-        self.articleDetails = articleDetails
-        self.quantity = 1
-        self.calcPositionPrice()
+    init(_ articleDetails: Article) { // 1
+        self.articleDetails = articleDetails // 2
+        self.quantity = 1 // 2
+        self.calcPositionPrice() // 1
     }
     
-    func more() {
-        quantity += 1
-        calcPositionPrice()
+    func more() { // 1
+        quantity += 1 // 1
+        calcPositionPrice() // 1
     }
     
-    func less() {
-        if (quantity > 0) {
-            quantity -= 1
-            calcPositionPrice()
+    func less() { // 1
+        if (quantity > 0) { // 2
+            quantity -= 1 // 1
+            calcPositionPrice() // 1
         }
     }
     
-    func calcPositionPrice() {
-        positionPrice = Double(quantity) * articleDetails.price
+    func calcPositionPrice() { // 1
+        positionPrice = Double(quantity) * (articleDetails.price ?? 0.0) // 5
     }
 }
+
+// 23

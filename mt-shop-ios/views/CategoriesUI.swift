@@ -7,38 +7,38 @@
 
 import SwiftUI
 
-struct CategoriesUI: View {
-    var body: some View {
-        CategoriesList(nil)
+struct CategoriesUI: View { // 1
+    var body: some View { // 1
+        CategoriesList(nil) // 1
     }
 }
 
-struct CategoriesList: View {
-    @State var categories: [Category] = []
+struct CategoriesList: View { // 1
+    @State var categories: [Category] = [] // 2
     
-    var subcategories: Link?
+    var subcategories: Link? // 0
     
-    init(_ subcategories: Link?) {
-        self.subcategories = subcategories
+    init(_ subcategories: Link?) { // 1
+        self.subcategories = subcategories // 2
     }
     
-    func loadCategories() {
-        Api.categories(subcategoriesUrl: subcategories) { response in
-            categories = response.embedded.categories!
+    func loadCategories() { // 1
+        Api.categories(subcategoriesUrl: subcategories) { response in // 3
+            categories = response.embedded.categories! // 3
         }
     }
     
-    var body: some View {
-        List(categories, id: \.categoryID) { c in
-            if let subs = c.links.subcategories {
-                NavigationLink(c.name, destination: CategoriesList(subs).navigationTitle(c.name))
-            } else {
-                if let articlesUrl = c.links.articles {
-                    NavigationLink(c.name, destination: ArticleList(articlesUrl).navigationTitle(c.name))
+    var body: some View { // 1
+        List(categories, id: \.categoryID) { c in // 4
+            if let subs = c.links.subcategories { // 4
+                NavigationLink(c.name, destination: CategoriesList(subs).navigationTitle(c.name)) // 6
+            } else { // 1
+                if let articlesUrl = c.links.articles { // 4
+                    NavigationLink(c.name, destination: ArticleList(articlesUrl).navigationTitle(c.name)) // 6
                 }
             }
-        }.onAppear {
-            loadCategories()
+        }.onAppear { // 1
+            loadCategories() // 1
         }
     }
 }
@@ -48,3 +48,5 @@ struct CategoriesUI_Previews: PreviewProvider {
         CategoriesUI()
     }
 }
+
+// 45

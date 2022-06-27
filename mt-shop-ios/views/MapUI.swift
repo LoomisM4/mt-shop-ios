@@ -8,30 +8,32 @@
 import SwiftUI
 import MapKit
 
-struct MapUI: View {
-    @StateObject var controller = MapController()
-    @State var items: [ShopLocation] = []
+struct MapUI: View { // 1
+    @StateObject var controller = MapController() // 3
+    @State var items: [ShopLocation] = [] // 2
     
-    var body: some View {
+    var body: some View { // 1
         Map(coordinateRegion: $controller.position, showsUserLocation: true, annotationItems: items) { item in
-            MapMarker(coordinate: item.coordinates)
+            MapMarker(coordinate: item.coordinates) // 9
         }
-            .onAppear {
-                controller.onLocationUpdate = self.onLocationUpdate(long:lat:)
-                controller.getPosition()
+            .onAppear { // 1
+                controller.onLocationUpdate = self.onLocationUpdate(long:lat:) // 3
+                controller.getPosition() // 1
         }
     }
     
-    func onLocationUpdate(long: CLLocationDegrees, lat: CLLocationDegrees) {
-        let newLat = lat + 0.002
-        let newLong = long - 0.003
-        let coordinate = CLLocationCoordinate2D(latitude: newLat, longitude: newLong)
-        items.append(ShopLocation(coordinates: coordinate))
+    func onLocationUpdate(long: CLLocationDegrees, lat: CLLocationDegrees) { // 1
+        let newLat = lat + 0.002 // 2
+        let newLong = long - 0.003 // 2
+        let coordinate = CLLocationCoordinate2D(latitude: newLat, longitude: newLong) // 4
+        items.append(ShopLocation(coordinates: coordinate)) // 3
     }
 }
 
-struct ShopLocation: Identifiable {
-    var id = UUID()
+struct ShopLocation: Identifiable { // 1
+    var id = UUID() // 2
     
-    let coordinates: CLLocationCoordinate2D
+    let coordinates: CLLocationCoordinate2D // 0
 }
+
+// 36

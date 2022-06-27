@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct mt_shop_iosApp: App {
     init() {
-        // TODO at launch stuff
+        NetworkChecker.startMonitoring() // 1
     }
     
     var body: some Scene {
@@ -19,3 +19,5 @@ struct mt_shop_iosApp: App {
         }
     }
 }
+
+// 1
